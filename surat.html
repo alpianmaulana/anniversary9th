@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surat Untuk Kamu</title>
+  <link rel="stylesheet" href="style/style.css">
+   <script src="script/main.js" defer></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #fff7fb);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(255, 120, 160, 0.25);
+      animation: slideUp 1.2s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ff4d88;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      animation: glowText 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowText {
+      from { text-shadow: 0 0 5px #ff99bb; }
+      to { text-shadow: 0 0 15px #ff4d88; }
+    }
+
+    .surat {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #444;
+      text-align: justify;
+      white-space: pre-line;
+      animation: fadeText 2.5s ease;
+    }
+
+    @keyframes fadeText {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .heart {
+      width: 60px;
+      display: block;
+      margin: 25px auto;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.15); }
+      40% { transform: scale(1); }
+      60% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    .music {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>💌 Surat Untuk My Bae</h1>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" class="heart" />
+
+    <div class="surat" id="text"></div>
+
+    <div class="music">
+      <p>🎵 Lagu untuk menemani kamu baca surat ini</p>
+      <audio autoplay loop>
+        <source src="love3.mp3">
+    </audio>
+    </div>
+  </div>
+
+  <footer>Aku Sayang kamu... ❤️</footer>
+
+<script>
+const text = `Sayangku…
+
+Hari ini aku nulis surat ini sambil senyum sendiri, soalnya setiap kali mikirin kamu, ada aja hal kecil yang bikin hati aku jadi hangat. Aku sering mikir, “Gimana ya caranya Tuhan bisa ngirim seseorang sebaik kamu ke hidupku?” Dan setiap kali nanya begitu, jawabannya selalu sama "Aku bersyukur banget punya kamu".
+
+Aku tahu perjalanan kita nggak selalu mulus. Kadang ada salah paham, kadang kita capek sama aktivitas masing-masing, kadang kita cuma pengen diem karena lagi pusing sama dunia. Tapi di balik semua itu, kamu tetap jadi tempat pulang yang paling aku cari.
+
+Aku suka banget cara kamu cerita, cara kamu ketawa, bahkan cara kamu bete pun kadang lucu. Kamu punya cara unik buat bikin hariku lebih ringan, bahkan cuma lewat sapaan sederhana kayak “Ayanggggggg” — kedengerannya sepele ya, tapi buat aku itu perhatian yang cuma kamu yang bisa kasih.
+
+Aku nulis ini bukan cuma karena rindu atau sayang. Tapi karena aku mau kamu tahu satu hal:
+
+Kamu adalah pilihan yang ingin aku perjuangkan setiap hari.
+
+Bukan cuma hari ini, bukan cuma besok, tapi selama aku masih bisa bernafas, aku bakal terus milih kamu. Bersama kamu itu rasanya kayak pulang, kayak nemuin bagian diri yang hilang dan akhirnya lengkap lagi.
+
+Aku sayang kamu…
+dengan cara yang sederhana, tapi tulus.
+dengan cara yang diam-diam, tapi nyata.
+dengan cara yang nggak banyak kata, tapi ada.
+
+Kamu itu hadiah, my bae.
+Hadiah yang nggak pernah aku minta, tapi diam-diam jadi paling berharga.
+
+Kalau suatu hari kamu lagi capek, lagi down, lagi ngerasa sendirian… ingat ya:
+Ada aku. your UMBRAPHILE..
+Selalu ada.
+Buat kamu.
+
+Makasih udah jadi kamu.
+Makasih udah bertahan selama ini.
+Makasih udah izinin aku ada di hidup kamu.
+
+Aku bangga banget sama kamu, sayang.
+Dan aku nggak sabar buat lihat semua masa depan yang bakal kita bangun sama-sama.
+
+I love you more than words can say.
+
+❤️✨`;
+
+let i = 0;
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("text").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 50);
+  }
+}
+typeWriter();
+setTimeout(() => {
+  const audio = document.getElementById("music");
+  audio.muted = false;
+  audio.play();
+}, 500);
+</script>
+
+ <a href="#" onclick="navigate('logiin.html')" class="btn back">Kembali ke Awal</a>
+
+</body>
+</html>

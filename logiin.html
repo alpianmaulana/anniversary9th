@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy 9th Anniversary — Home</title>
+
+  <style>
+    :root{
+      --bg: #0b0710;
+      --card: #fff;
+      --accent: #ff5f8f;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, Arial;
+      background: linear-gradient(180deg,#0b0710 0%, #15081a 100%);
+      color: #fff;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 20px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:1100px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:16px;
+      padding:20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .header{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      margin-bottom:18px;
+      text-align:center;
+    }
+    .title{
+      font-size:26px;
+      letter-spacing:1px;
+      color:var(--accent);
+      font-weight:700;
+    }
+    .subtitle{color:#cfc9d6;font-size:14px}
+
+    .slider{
+      position:relative;
+      width:100%;
+      height:320px;
+      overflow:hidden;
+      border-radius:12px;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .track{
+      display:flex;
+      width:calc(200%);
+      height:100%;
+      align-items:center;
+    }
+
+    .slide{
+      flex: 0 0 calc(100% / 5);
+      padding:8px;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      transition: transform .35s ease;
+      cursor: pointer;
+    }
+    .slide img:hover{ transform: scale(1.03); }
+
+    @media (max-width:700px){
+      .slider{ height:220px; }
+      .slide{ flex: 0 0 calc(100% / 2); }
+    }
+
+    .controls{
+      position:absolute;
+      left:12px;
+      right:12px;
+      bottom:12px;
+      display:flex;
+      justify-content:space-between;
+      pointer-events:none;
+    }
+    .btn{
+      pointer-events:auto;
+      background:rgba(255,255,255,0.06);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.06);
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .anniv-msg{
+      text-align:center;
+      margin:20px 0 20px;
+      font-size:20px;
+      font-weight:600;
+      color:#ff8fb4;
+      letter-spacing:0.5px;
+      text-shadow:0 0 10px rgba(255,120,160,0.5);
+    }
+
+    /* tombol navigasi */
+    .nav-buttons{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      margin-top:25px;
+    }
+    .nav-btn{
+      background: var(--accent);
+      padding:10px 20px;
+      border-radius:10px;
+      color:#fff;
+      font-size:16px;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow:0 0 12px rgba(255,95,143,0.5);
+      transition:0.3s;
+    }
+    .nav-btn:hover{
+      transform:scale(1.06);
+      box-shadow:0 0 18px rgba(255,95,143,0.8);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <div class="header">
+      <div class="title">💖 Happy 9th Anniversary, My Bae 💖</div>
+      <div class="subtitle">Selamat merayakan 9 tahun penuh cinta & kenangan</div>
+    </div>
+
+    <div class="anniv-msg">
+      Terima kasih sudah menjadi rumah terindah dalam hidupku ❤️
+    </div>
+
+    <div class="slider" id="slider">
+      <div class="track" id="track"></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="prev">◀</button>
+      <button class="btn" id="next">▶</button>
+    </div>
+
+    <!-- tombol navigasi -->
+    <div class="nav-buttons">
+      <a href="surat.html" class="nav-btn">📜 Surat Cinta</a>
+      <a href="kenangan.html" class="nav-btn">📸 Kenangan Kita</a>
+    </div>
+  </div>
+
+  <!-- musik autoplay -->
+  <audio id="bgm" autoplay loop muted>
+    <source src="love1.mp3">
+  </audio>
+
+<script>
+(function(){
+  const images = [
+    'foto1.jpg','foto2.jpg','foto3.jpg','foto4.jpg','foto5.jpg',
+    'foto6.jpg','foto7.jpg','foto8.jpg','foto9.jpg','foto10.jpg',
+    'foto11.jpg','foto12.jpg','foto13.jpg','foto14.jpg','foto15.jpg',
+    'foto16.jpg','foto17.jpg','foto18.jpg','foto19.jpg','foto20.jpg',
+    'foto21.jpg','foto22.jpg','foto23.jpg','foto24.jpg','foto25.jpg',
+    'foto26.jpg','foto27.jpg','foto28.jpg','foto29.jpg','foto30.jpg'
+  ];
+
+  const slider = document.getElementById('slider');
+  const track = document.getElementById('track');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+
+  function buildSlides(){
+    track.innerHTML = '';
+    const all = images.concat(images);
+    all.forEach((src)=>{
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = 'Kenangan Kita';
+      slide.appendChild(img);
+      track.appendChild(slide);
+    });
+  }
+  buildSlides();
+
+  let trackWidth = track.scrollWidth / 2;
+  let px = 0;
+  let lastTimestamp = null;
+  let playing = true;
+  let speed = 0.4;
+
+  function step(ts){
+    if(!lastTimestamp) lastTimestamp = ts;
+    const dt = (ts - lastTimestamp) / 1000;
+    lastBox = ts;
+
+    if(playing){
+      px += speed;
+      if(px >= trackWidth) px -= trackWidth;
+      track.style.transform = 'translateX(' + (-px) + 'px)';
+    }
+    requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+
+  slider.addEventListener('mouseenter', ()=> playing = false);
+  slider.addEventListener('mouseleave', ()=> playing = true);
+
+  function move(direction){
+    const visible = slider.clientWidth;
+    px = (px + visible * direction + trackWidth) % trackWidth;
+    track.style.transform = 'translateX(' + (-px) + 'px)';
+  }
+
+  prevBtn.addEventListener('click', ()=> move(-1));
+  nextBtn.addEventListener('click', ()=> move(1));
+
+})();
+
+/* force autoplay unmuted */
+setTimeout(() => {
+  const bgm = document.getElementById("bgm");
+  bgm.muted = false;
+  bgm.play().catch(()=>{});
+}, 300);
+</script>
+
+</body>
+</html>
